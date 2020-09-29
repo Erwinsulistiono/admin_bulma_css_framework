@@ -1,0 +1,31 @@
+* {
+	font-family: "Nunito Sans", sans-serif;
+}
+
+:root {
+	--shadowDark: #d9dde6;
+	--background: #e4e9f2;
+	--shadowLight: #eff5fe;
+}
+
+body {
+	background: var(--background);
+}
+
+.hero-body {
+	justify-content: center;
+}
+
+.login {
+	border-radius: 25px;
+	padding: 1.5rem;
+	box-shadow: 8px 8px 15px var(--shadowDark), -8px -8px 15px var(--shadowLight);
+}
+
+input {
+	background: var(--shadowDark) !important;
+}
+
+a {
+	font-weight: 600;
+}
