@@ -12,14 +12,14 @@
         <div class="column">
             <div class="navbar-end">
                 <a data-modal="modal_tambah_akun" class="button modal-button is-rounded is-primary is-light has-background-white">
-                    <span class="icon">
-                        <i class="fas fa-plus"></i>
+                    <span class="icon is-large">
+                        <i class="fas fa-lg fa-plus"></i>
                     </span>
                 </a>
             </div>
         </div>
     </div>
-    <div class="card pt-4 px-3 table-container">
+    <div class="card card-shadow pt-4 px-3 table-container">
         <table class="table is-stripped is-hoverable is-fullwidth">
             <thead>
                 <tr>
@@ -43,7 +43,7 @@
     <div class="modal-card">
 
         <header class="modal-card-head">
-            <p class="modal-card-title">Tambah Akun</p>
+            <p class="modal-card-title">Akun</p>
             <button class="delete modal-close" aria-label="close is-danger"></button>
         </header>
 
@@ -68,14 +68,12 @@
                 </div>
             </section>
 
-            <footer class="modal-card-foot">
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button type="submit" class="button simpan-modal is-link is-rounded is-success">SAVE</button>
-                    </div>
-                    <div class="control">
-                        <a href="#" class="button is-link is-light is-rounded modal-foot-close">CANCEL</a>
-                    </div>
+            <footer class="modal-card-foot field is-grouped is-grouped-right">
+                <div class="control">
+                    <button type="submit" class="button simpan-modal is-link is-rounded is-success">SAVE</button>
+                </div>
+                <div class="control">
+                    <a href="#" class="button is-link is-light is-rounded modal-foot-close">CANCEL</a>
                 </div>
             </footer>
         </form>
@@ -85,12 +83,13 @@
 <script type="text/javascript" src="<?= base_url() ?>assets/js/datatables.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>assets/js/dataTables.bulma.min.js"></script>
 <script type="text/javascript">
-    var element = "";
     var data;
 
     var passingValueData = (fetch_data) => {
-        data = fetch_data;
-        $.each(data, function(key, entry) {
+        let element = "";
+        data = fetch_data.data;
+        let url = '<?= base_url() ?>'
+        data.forEach(function(entry, key) {
             element += '<tr>' +
                 '<td> ' + (key + 1) + ' </td>' +
                 '<td> ' + entry.akun_kode + ' </td>' +
@@ -98,31 +97,14 @@
                 '<td> ' + entry.created_at + ' </td>' +
                 '<td> ' + entry.useride + ' </td>' +
                 '<td> ' +
-                '<a data-id="' + entry.akun_id + '" data-modal="modal_tambah_akun" class="button modal-button is-light is-rounded has-background-white is-warning">' +
-                '<span class="icon"><i class="fas fa-pencil-alt"></i></span></a>' +
-                '<a class="button is-light is-rounded has-background-white is-danger">' +
-                '<span class="icon"><i class="fas fa-trash"></i></span></a>' +
+                '<a data-id="' + entry.akun_id + '" data-modal="modal_tambah_akun" class="modal-button">' +
+                '<span class="is-medium has-text-warning icon"><i class="fas fa-lg fa-pencil-alt"></i></span></a>' +
+                '<a href="' + url + 'accounting/hapus_account/' + entry.akun_id + '" class="deleteRow">' +
+                '<span class="is-medium has-text-danger icon"><i class="fas fa-lg fa-times"></i></span></a>' +
                 '</td>' +
                 '</tr>';
         })
         $('#target').html(element)
         $('.table').DataTable();
     }
-
-    $("#form-submit-akun").submit(function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: $(this).attr('action'),
-            method: $(this).attr('method'),
-            data: $(this).serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                confirm('simpan data ?');
-            },
-            success: function(data) {
-                target.html(data.html)
-                passingValueData(data.data)
-            }
-        })
-    })
 </script>

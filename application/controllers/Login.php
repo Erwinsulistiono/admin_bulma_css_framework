@@ -31,7 +31,7 @@ class Login extends CI_Controller
                 'pengguna_id' => $cadmin['user_id'],
                 'pengguna_nama' => $cadmin['user_nama'],
                 'pengguna_username' => $cadmin['user_name'],
-                'pengguna_photo' => $cadmin['user_fotol'],
+                'pengguna_photo' => $cadmin['user_foto'],
             );
             $this->session->set_userdata($sesdata);
         }

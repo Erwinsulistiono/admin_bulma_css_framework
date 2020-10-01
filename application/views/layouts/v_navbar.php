@@ -1,5 +1,5 @@
 <!-- START NAV -->
-<nav class="navbar is-white">
+<nav class="navbar is-white has-shadow">
     <div class="navbar-burger burger toggler" data-target="navMenu">
         <span></span>
         <span></span>
