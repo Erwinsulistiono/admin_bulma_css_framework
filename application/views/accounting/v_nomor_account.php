@@ -80,14 +80,11 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?= base_url() ?>assets/js/datatables.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/js/dataTables.bulma.min.js"></script>
-<script type="text/javascript">
-    var data;
 
+<script type="text/javascript">
     var passingValueData = (fetch_data) => {
         let element = "";
-        data = fetch_data.data;
+        var data = fetch_data.data;
         let url = '<?= base_url() ?>'
         data.forEach(function(entry, key) {
             element += '<tr>' +
@@ -105,6 +102,5 @@
                 '</tr>';
         })
         $('#target').html(element)
-        $('.table').DataTable();
     }
 </script>

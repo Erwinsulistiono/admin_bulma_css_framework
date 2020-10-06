@@ -1,11 +1,17 @@
 <?php $this->load->view('layouts/v_head'); ?>
 
-<body>
+<body class="is-clipped">
     <?php $this->load->view('layouts/v_navbar'); ?>
     <?php $this->load->view('layouts/v_sidebar'); ?>
     <div id="main-body-content" class="column"></div>
     <?php $this->load->view('layouts/v_footer'); ?>
 
+    <script type="text/javascript" src="<?= base_url() ?>assets/js/bulma-calendar.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>assets/js/script.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>assets/js/jquery-3.4.1.min.js"></script>
+    <!-- <script type="text/javascript" src="<?= base_url() ?>assets/js/datatables.js"></script> -->
+    <script type="text/javascript" src="<?= base_url() ?>assets/js/vanilla-dataTables.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>assets/js/dataTables.bulma.min.js"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             'use strict';
@@ -42,18 +48,23 @@
                 });
             });
 
-            function fetch_page(url) {
+            let fetch_page = url => {
                 fetch(url)
                     .then((response) => {
                         response.json().then((data) => {
                             target.html(data.html)
                             passingValueData(data)
-                        });
+                            isLoadedAttachDataTable()
+                        })
                     })
                     .catch((err) => {
                         alert("failed to fetch")
-                    });
+                    })
             };
+
+            let isLoadedAttachDataTable = () => {
+                var table = new DataTable("table");
+            }
 
             $(document).keydown(function(e) {
                 if (e.which == 116 || e.keyCode == 82 && e.ctrlKey) { //116 = F5

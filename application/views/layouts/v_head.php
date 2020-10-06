@@ -13,4 +13,5 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/dataTables.bulma.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/bulma-calendar.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/vanilla-dataTables.min.css">
 </head>

@@ -11,7 +11,7 @@
         </div>
         <div class="column">
             <div class="navbar-end">
-                <a data-modal="modal_tambah_akun" class="button modal-button is-primary is-rounded is-light has-background-white">
+                <a data-modal="modal_tambah_akun" class="button modal-button is-primary is-rounded is-light has-background-white is-hidden-mobile is-pulled-right">
                     <span class="icon is-large">
                         <i class="fas fa-lg fa-plus"></i>
                     </span>
@@ -147,8 +147,6 @@
 </div>
 
 <script type="text/javascript" src="<?= base_url() ?>assets/js/bulma-calendar.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/js/datatables.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/js/dataTables.bulma.min.js"></script>
 <script type="text/javascript">
     var dataAkun;
     var startDateOnDateTimePicker;
@@ -160,7 +158,6 @@
         let url = '<?= base_url() ?>'
         data.forEach(function(entry, key) {
             let tipeCoA = '';
-            entry.coa_balance = Number(entry.coa_balance).toLocaleString('id-ID');
             if (entry.coa_header_detail == 'H') {
                 entry.coa_header_detail = 'Header';
             };
@@ -171,9 +168,7 @@
                 '<td> ' + (key + 1) + ' </td>' +
                 '<td> ' + entry.coa_no + ' </td>' +
                 '<td> ' + entry.coa_nama + ' </td>' +
-                '<td> ' + entry.akun_kode + ' - ' + entry.akun_ket + ' </td>';
-
-            element +=
+                '<td> ' + entry.akun_kode + ' - ' + entry.akun_ket + ' </td>' +
                 '<td> ' + entry.coa_header_detail + ' </td>' +
                 '<td> ' + entry.coa_crdr + ' </td>' +
                 '<td> ' + entry.coa_balance + ' </td>' +
@@ -189,7 +184,6 @@
             tipeCoA = '';
         })
         $('#target').html(element)
-        $('.table').DataTable();
     }
 
     $(document).on('click', 'a.modal-button', function() {
@@ -202,11 +196,10 @@
         });
     })
 
-
     function hapusElementHidden() {
         $(".datetimepicker").toggleClass('is-hidden');
     }
-    const calendars = bulmaCalendar.attach('[type="date"]');
+    var calendars = bulmaCalendar.attach('[type="date"]');
     calendars.forEach(calendar => {
         calendar.on('select', date => {
             hapusElementHidden()
