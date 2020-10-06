@@ -50,7 +50,7 @@
                 $('.modal').removeClass('is-clipped');
             }
 
-            $(document).on('click', 'a.modal-button', function() {
+            $(document).on('click', '.modal-button', function() {
                 let el = $(this).data('modal');
                 let key_val = $(this).data('id');
                 let modal_data = data.filter(a => Object.values(a)[0] == key_val);

@@ -30,6 +30,7 @@
                     <th>Tipe CoA</th>
                     <th>Cr/Db</th>
                     <th>Saldo (Rp)</th>
+                    <th>Per Tanggal</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -126,7 +127,7 @@
                         <div class="field">
                             <label class="label">Per Tanggal</label>
                             <div class="control">
-                                <input class="input is-rounded" data-show-header="false" data-color="info" data-display-mode="dialog" name="coa_balance_date" type="date">
+                                <input class="datepicker input is-rounded" id="pooop" data-show-header="false" data-color="hidden" name="coa_balance_date" type="date">
                             </div>
                         </div>
                     </div>
@@ -135,10 +136,10 @@
 
             <footer class="modal-card-foot field is-grouped is-grouped-right">
                 <div class="control">
-                    <button type="submit" class="button simpan-modal is-link is-rounded is-success">SAVE</button>
+                    <a href="#" class="button is-outlined is-rounded modal-foot-close">CANCEL</a>
                 </div>
                 <div class="control">
-                    <a href="#" class="button is-link is-light is-rounded modal-foot-close">CANCEL</a>
+                    <button type="submit" class="button simpan-modal is-link is-rounded is-success">SAVE</button>
                 </div>
             </footer>
         </form>
@@ -153,7 +154,6 @@
 
     var passingValueData = (fetch_data) => {
         let element = "";
-        console.log(fetch_data);
         data = fetch_data.data.data1;
         dataAkun = fetch_data.data.data2;
         let url = '<?= base_url() ?>'
@@ -176,6 +176,7 @@
                 '<td> ' + entry.coa_header_detail + ' </td>' +
                 '<td> ' + entry.coa_crdr + ' </td>' +
                 '<td> ' + entry.coa_balance + ' </td>' +
+                '<td> ' + entry.coa_balance_date + ' </td>' +
                 '<td> ' +
                 '<a data-id="' + entry.coa_id + '" data-modal="modal_tambah_akun" class="modal-button">' +
                 '<span class="is-medium has-text-warning icon"><i class="fas fa-lg fa-pencil-alt"></i></span></a>' +
@@ -193,7 +194,6 @@
     $(document).on('click', 'a.modal-button', function() {
         let el = $(this).attr('name');
         $.each(dataAkun, function(key, entry) {
-            console.log('poop');
             $("select[name*='akun_kode']")
                 .append($('<option></option>')
                     .attr('value', entry.akun_kode)
@@ -218,22 +218,32 @@
         });
     });
 
-    var calendars = bulmaCalendar.attach('[type="date"]');
+    var calendars = bulmaCalendar.attach('#pooop', {
+        dateFormat: 'DD/MM/YYYY'
+    });
 
     // Loop on each calendar initialized
     for (var i = 0; i < calendars.length; i++) {
         // Add listener to date:selected event
         calendars[i].on('select', date => {
-            console.log(date);
+            hapusElementHidden();
         });
     }
 
     // To access to bulmaCalendar instance of an element
-    var element = document.querySelector('#my-element');
+    var element = document.querySelector('#pooop');
     if (element) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         element.bulmaCalendar.on('select', function(datepicker) {
-            console.log(datepicker.data.value());
+            addElementHidden()
         });
     }
+
+    function hapusElementHidden() {
+        $(".datetimepicker").toggleClass('is-hidden');
+    }
+
+    $('.modal-close , .modal-card-head , .modal-card-foot , .simpan-modal , .modal-foot-close').click(function() {
+        $(".datetimepicker").toggleClass('is-hidden', true);
+    })
 </script>

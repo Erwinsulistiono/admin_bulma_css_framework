@@ -8,32 +8,42 @@
   <title><?= $title ?></title>
   <link href="<?= base_url() ?>assets/css/font.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/bulma.min.css') ?>" />
-  <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/neumorphic-login.css') ?>">
 </head>
 
 <body>
-  <section class="hero is-fullheight">
-    <div class="hero-body has-text-centered">
-      <div class="login">
-        <img src="https://logoipsum.com/logo/logo-1.svg" width="325px" />
-        <form action='<?= base_url() ?>login/auth' accept-charset='utf-8' method='post'>
-          <div class="field">
-            <div class="control">
-              <input class="input is-medium is-rounded" name="username" type="text" placeholder="@username" autocomplete="username" required />
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <input class="input is-medium is-rounded" name="password" type="password" placeholder="**********" autocomplete="current-password" required />
-            </div>
-          </div>
-          <br />
-          <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">
-            Login
-          </button>
-        </form>
+  <section class="hero is-fullheight is-light">
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-4 is-4">
+            <div class="box">
+              <div class="card-content">
+                <form action='<?= base_url() ?>login/auth' accept-charset='utf-8' method='post'>
+                  <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                      <input class="input is-medium is-rounded" name="username" type="text" placeholder="e.g @admin">
+                    </div>
+                  </div>
 
+                  <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                      <input class="input is-medium is-rounded" name="password" type="password" placeholder="**********">
+                    </div>
+                  </div>
+                  <br />
+                  <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">
+                    LOGIN
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
 </body>

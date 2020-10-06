@@ -7,6 +7,7 @@
                 </p>
                 <ul class="menu-list">
                     <li><a class="navBtn" href="<?= base_url('dashboard') ?>">Dashboard</a></li>
+                    <li><a class="navBtn is-hidden-desktop" href="<?= base_url('dashboard') ?>">Profile</a></li>
                 </ul>
                 <p class="menu-label">
                     Accounting

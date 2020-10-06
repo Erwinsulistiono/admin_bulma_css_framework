@@ -70,10 +70,10 @@
 
             <footer class="modal-card-foot field is-grouped is-grouped-right">
                 <div class="control">
-                    <button type="submit" class="button simpan-modal is-link is-rounded is-success">SAVE</button>
+                    <a href="#" class="button is-outlined is-rounded modal-foot-close">CANCEL</a>
                 </div>
                 <div class="control">
-                    <a href="#" class="button is-link is-light is-rounded modal-foot-close">CANCEL</a>
+                    <button type="submit" class="button simpan-modal is-link is-rounded is-success">SAVE</button>
                 </div>
             </footer>
         </form>

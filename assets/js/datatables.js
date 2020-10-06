@@ -11461,7 +11461,7 @@
 			 *      } );
 			 *    } );
 			 */
-			sSearch: "Search:",
+			sSearch: "",
 
 			/**
 			 * Assign a `placeholder` attribute to the search `input` element
@@ -11471,7 +11471,7 @@
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.searchPlaceholder
 			 */
-			sSearchPlaceholder: "",
+			sSearchPlaceholder: "Search......",
 
 			/**
 			 * All of the language information can be stored in a file on the
