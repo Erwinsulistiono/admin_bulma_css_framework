@@ -84,7 +84,7 @@
 <script type="text/javascript">
     var passingValueData = (fetch_data) => {
         let element = "";
-        var data = fetch_data.data;
+        data = fetch_data.data;
         let url = '<?= base_url() ?>'
         data.forEach(function(entry, key) {
             element += '<tr>' +
