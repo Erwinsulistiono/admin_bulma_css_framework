@@ -24,10 +24,10 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>No Akun</th>
-                    <th>Keterangan Akun</th>
-                    <th>Created at</th>
-                    <th>Created by</th>
+                    <th data-field="akun_kode">No Akun</th>
+                    <th data-field="akun_ket">Keterangan Akun</th>
+                    <th data-field="created_at">Created at</th>
+                    <th data-field="useride">Created by</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -47,7 +47,7 @@
             <button class="delete modal-close" aria-label="close is-danger"></button>
         </header>
 
-        <form action='<?= base_url() ?>accounting/simpan_account/' id="form-submit-akun" accept-charset='utf-8' method='post'>
+        <form action='<?= base_url() ?>accounting/simpan_nomor_account/' id="form-submit-akun" accept-charset='utf-8' method='post'>
             <section class="modal-card-body">
                 <div class="field">
                     <div class="control">
@@ -79,28 +79,3 @@
         </form>
     </div>
 </div>
-
-
-<script type="text/javascript">
-    var passingValueData = (fetch_data) => {
-        let element = "";
-        data = fetch_data.data;
-        let url = '<?= base_url() ?>'
-        data.forEach(function(entry, key) {
-            element += '<tr>' +
-                '<td> ' + (key + 1) + ' </td>' +
-                '<td> ' + entry.akun_kode + ' </td>' +
-                '<td> ' + entry.akun_ket + ' </td>' +
-                '<td> ' + entry.created_at + ' </td>' +
-                '<td> ' + entry.useride + ' </td>' +
-                '<td> ' +
-                '<a data-id="' + entry.akun_id + '" data-modal="modal_tambah_akun" class="modal-button">' +
-                '<span class="is-medium has-text-warning icon"><i class="fas fa-lg fa-pencil-alt"></i></span></a>' +
-                '<a href="' + url + 'accounting/hapus_account/' + entry.akun_id + '" class="deleteRow">' +
-                '<span class="is-medium has-text-danger icon"><i class="fas fa-lg fa-times"></i></span></a>' +
-                '</td>' +
-                '</tr>';
-        })
-        $('#target').html(element)
-    }
-</script>

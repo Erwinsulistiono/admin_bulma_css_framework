@@ -24,13 +24,13 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>No Akun</th>
-                    <th>Nama</th>
-                    <th>Tipe Akun</th>
-                    <th>Tipe CoA</th>
-                    <th>Cr/Db</th>
-                    <th>Saldo (Rp)</th>
-                    <th>Per Tanggal</th>
+                    <th data-field="coa_no">No Akun</th>
+                    <th data-field="coa_nama">Nama</th>
+                    <th data-field="akun_kode">Tipe Akun</th>
+                    <th data-field="coa_header_detail">Tipe CoA</th>
+                    <th data-field="coa_crdr">Cr/Db</th>
+                    <th data-field="coa_balance">Saldo (Rp)</th>
+                    <th data-field="coa_balance_date">Per Tanggal</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -148,43 +148,19 @@
 
 <script type="text/javascript" src="<?= base_url() ?>assets/js/bulma-calendar.min.js"></script>
 <script type="text/javascript">
-    var dataAkun;
-    var startDateOnDateTimePicker;
-
-    var passingValueData = (fetch_data) => {
-        let element = "";
-        data = fetch_data.data.data1;
-        dataAkun = fetch_data.data.data2;
-        let url = '<?= base_url() ?>'
-        data.forEach(function(entry, key) {
-            let tipeCoA = '';
-            if (entry.coa_header_detail == 'H') {
-                entry.coa_header_detail = 'Header';
-            };
-            if (entry.coa_header_detail == 'D') {
-                entry.coa_header_detail = 'Detail'
-            };
-            element += '<tr>' +
-                '<td> ' + (key + 1) + ' </td>' +
-                '<td> ' + entry.coa_no + ' </td>' +
-                '<td> ' + entry.coa_nama + ' </td>' +
-                '<td> ' + entry.akun_kode + ' - ' + entry.akun_ket + ' </td>' +
-                '<td> ' + entry.coa_header_detail + ' </td>' +
-                '<td> ' + entry.coa_crdr + ' </td>' +
-                '<td> ' + entry.coa_balance + ' </td>' +
-                '<td> ' + entry.coa_balance_date + ' </td>' +
-                '<td> ' +
-                '<a data-id="' + entry.coa_id + '" data-modal="modal_tambah_akun" class="modal-button">' +
-                '<span class="is-medium has-text-warning icon"><i class="fas fa-lg fa-pencil-alt"></i></span></a>' +
-                '<a href="' + url + 'accounting/hapus_coa/' + entry.coa_id + '" class="deleteRow">' +
-                '<span class="is-medium has-text-danger icon"><i class="fas fa-lg fa-times"></i></span></a>' +
-                '</td>' +
-                '</tr>';
-
-            tipeCoA = '';
+    var dataakun = '<?= base_url('accounting') ?>'
+    var dataAkun = fetch(dataakun)
+        .then((response) => {
+            response.json().then((result) => {
+                data = result.data
+                target.html(result.html)
+                isLoadedAttachDataTable(data)
+            })
         })
-        $('#target').html(element)
-    }
+        .catch((err) => {
+            alert("failed to fetch")
+        })
+    var startDateOnDateTimePicker;
 
     $(document).on('click', 'a.modal-button', function() {
         let el = $(this).attr('name');

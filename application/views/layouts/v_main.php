@@ -9,21 +9,21 @@
     <script type="text/javascript" src="<?= base_url() ?>assets/js/bulma-calendar.min.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>assets/js/script.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>assets/js/jquery-3.4.1.min.js"></script>
-    <!-- <script type="text/javascript" src="<?= base_url() ?>assets/js/datatables.js"></script> -->
     <script type="text/javascript" src="<?= base_url() ?>assets/js/vanilla-dataTables.js"></script>
-    <script type="text/javascript" src="<?= base_url() ?>assets/js/dataTables.bulma.min.js"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             'use strict';
             let target = $("#main-body-content");
+            let baseurl = '<?= base_url() ?>'
             let url;
             let form;
+            let data;
 
             const navBtn = document.querySelectorAll(".navBtn");
             navBtn.forEach(element => {
                 element.addEventListener('click', function(e) {
                     e.preventDefault();
-                    let url = e.target.href;
+                    url = e.target.href;
                     navBtn.forEach(rm => rm.classList.remove("is-active"));
                     fetch_page(url);
                     element.classList.add("is-active");
@@ -51,10 +51,10 @@
             let fetch_page = url => {
                 fetch(url)
                     .then((response) => {
-                        response.json().then((data) => {
-                            target.html(data.html)
-                            passingValueData(data)
-                            isLoadedAttachDataTable()
+                        response.json().then((result) => {
+                            data = result.data
+                            target.html(result.html)
+                            isLoadedAttachDataTable(data)
                         })
                     })
                     .catch((err) => {
@@ -62,7 +62,36 @@
                     })
             };
 
-            let isLoadedAttachDataTable = () => {
+            let isLoadedAttachDataTable = (data) => {
+                var table = document.querySelector('.table')
+                var tableReff = table.querySelectorAll('th[data-field]')
+                var destTh = [...tableReff].map(t => t.getAttribute('data-field'))
+
+                Object.values(data)
+                    .forEach(d => Object.keys(d)
+                        .filter(key => !destTh.includes(key))
+                        .forEach(key => delete d[key]));
+
+                // console.log(data)
+                var pathUrl = url.split('/')
+                var activeClass = pathUrl[pathUrl.length - 2]
+                var activeMethod = pathUrl[pathUrl.length - 1]
+
+                Object.values(data)
+                    .forEach((entry, key) => {
+                        let newRow = document.querySelector('#target').insertRow(-1)
+                        // let newCell = newRow.insertCell();
+                        // let newText = document.createTextNode(key + 1);
+                        // newCell.appendChild(newText)
+                        let newCell = newRow.insertCell();
+                        let newText = document.createTextNode(Object.values(key));
+                        newCell.appendChild(newText)
+                        // newCell = newRow.insertCell();
+                        // newCell.innerHTML = `<a data-id="${entry.akun_id}" data-modal="modal_tambah_akun" class="modal-button">
+                        //     <span class="is-medium has-text-warning icon"><i class="fas fa-lg fa-pencil-alt"></i></span></a>
+                        //     <a href="${baseurl}${activeClass}/hapus_${activeMethod}/${entry.akun_id}" class="deleteRow">
+                        //     <span class="is-medium has-text-danger icon"><i class="fas fa-lg fa-times"></i></span></a>`
+                    })
                 var table = new DataTable("table");
             }
 
@@ -127,7 +156,7 @@
                     .then((response) => {
                         response.json().then((data) => {
                             $("#main-body-content").html(data.html)
-                            passingValueData(data.data);
+                            isLoadedAttachDataTable(data.data);
                         });
                     })
                     .catch((err) => {
@@ -146,7 +175,7 @@
                     .then(response => response.json())
                     .then(data => {
                         $("#main-body-content").html(data.html);
-                        passingValueData(data.data);
+                        isLoadedAttachDataTable(data.data);
                     })
                     .catch(error => {
                         alert('Error Couldn\'t fetch data');
