@@ -162,6 +162,7 @@ nav.navbar {
   .modal-card,
   .modal-content {
     margin: 0 auto;
+    border-radius: 10px;
     max-height: calc(100vh - 40px);
     width: 130vh;
   }
@@ -175,5 +176,8 @@ nav.navbar {
 }
 ::-webkit-scrollbar {
   display: none;
+}
+.card {
+  border-radius: 10px;
 }
 /*# sourceMappingURL=style.css.map */

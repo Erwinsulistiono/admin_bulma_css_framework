@@ -52,9 +52,9 @@
                 fetch(url)
                     .then((response) => {
                         response.json().then((result) => {
-                            data = result.data
-                            target.html(result.html)
-                            isLoadedAttachDataTable(data)
+                            data = result
+                            target.html(data.html)
+                            isLoadedAttachDataTable(data.data)
                         })
                     })
                     .catch((err) => {
@@ -62,35 +62,35 @@
                     })
             };
 
-            let isLoadedAttachDataTable = (data) => {
+            let isLoadedAttachDataTable = (result) => {
                 var table = document.querySelector('.table')
                 var tableReff = table.querySelectorAll('th[data-field]')
                 var destTh = [...tableReff].map(t => t.getAttribute('data-field'))
-
-                Object.values(data)
-                    .forEach(d => Object.keys(d)
-                        .filter(key => !destTh.includes(key))
-                        .forEach(key => delete d[key]));
-
-                // console.log(data)
+                var tableAct = table.querySelector('th[data-action]').getAttribute('data-action')
+                var destAct = tableAct.split('-')
+                let newCell
+                let newText
                 var pathUrl = url.split('/')
                 var activeClass = pathUrl[pathUrl.length - 2]
                 var activeMethod = pathUrl[pathUrl.length - 1]
 
-                Object.values(data)
-                    .forEach((entry, key) => {
-                        let newRow = document.querySelector('#target').insertRow(-1)
-                        // let newCell = newRow.insertCell();
-                        // let newText = document.createTextNode(key + 1);
-                        // newCell.appendChild(newText)
-                        let newCell = newRow.insertCell();
-                        let newText = document.createTextNode(Object.values(key));
+                result
+                    .forEach((d, r) => {
+                        let newRow = document.querySelector('#target').insertRow()
+                        newCell = newRow.insertCell()
+                        newText = document.createTextNode(r + 1);
                         newCell.appendChild(newText)
-                        // newCell = newRow.insertCell();
-                        // newCell.innerHTML = `<a data-id="${entry.akun_id}" data-modal="modal_tambah_akun" class="modal-button">
-                        //     <span class="is-medium has-text-warning icon"><i class="fas fa-lg fa-pencil-alt"></i></span></a>
-                        //     <a href="${baseurl}${activeClass}/hapus_${activeMethod}/${entry.akun_id}" class="deleteRow">
-                        //     <span class="is-medium has-text-danger icon"><i class="fas fa-lg fa-times"></i></span></a>`
+                        destTh
+                            .forEach(th => {
+                                newCell = newRow.insertCell()
+                                newText = document.createTextNode(d[th])
+                                newCell.appendChild(newText)
+                            })
+                        newCell = newRow.insertCell();
+                        newCell.innerHTML = `<a data-id="${Object.values(d)[0]}" data-modal="modal_tambah_akun" class="modal-button">
+                            <span class="is-medium has-text-warning icon"><i class="fas fa-lg fa-pencil-alt"></i></span></a>
+                            <a href="${baseurl}${activeClass}/hapus_${activeMethod}/${Object.values(d)[0]}" class="deleteRow">
+                            <span class="is-medium has-text-danger icon"><i class="fas fa-lg fa-times"></i></span></a>`
                     })
                 var table = new DataTable("table");
             }
@@ -113,7 +113,7 @@
             $(document).on('click', '.modal-button', function() {
                 let el = $(this).data('modal');
                 let key_val = $(this).data('id');
-                let modal_data = data.filter(a => Object.values(a)[0] == key_val);
+                let modal_data = data.data.filter(a => Object.values(a)[0] == key_val);
                 const form = document.getElementById(el).querySelector('form');
 
                 if (key_val) {

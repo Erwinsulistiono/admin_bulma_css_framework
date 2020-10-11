@@ -16,6 +16,16 @@
                         <i class="fas fa-lg fa-plus"></i>
                     </span>
                 </a>
+                <a data-modal="modal_tambah_akun" class="button modal-button is-primary is-rounded is-light has-background-white is-hidden-mobile is-pulled-right">
+                    <span class="icon is-large">
+                        <i class="fas fa-lg fa-plus"></i>
+                    </span>
+                </a>
+                <a data-modal="modal_tambah_akun" class="button modal-button is-primary is-rounded is-light has-background-white is-hidden-mobile is-pulled-right">
+                    <span class="icon is-large">
+                        <i class="fas fa-lg fa-plus"></i>
+                    </span>
+                </a>
             </div>
         </div>
     </div>
@@ -26,12 +36,12 @@
                     <th>No</th>
                     <th data-field="coa_no">No Akun</th>
                     <th data-field="coa_nama">Nama</th>
-                    <th data-field="akun_kode">Tipe Akun</th>
+                    <th data-field="akun_ket" rowspan="2">Tipe Akun</th>
                     <th data-field="coa_header_detail">Tipe CoA</th>
                     <th data-field="coa_crdr">Cr/Db</th>
                     <th data-field="coa_balance">Saldo (Rp)</th>
                     <th data-field="coa_balance_date">Per Tanggal</th>
-                    <th>Action</th>
+                    <th data-action="edit-delete">Action</th>
                 </tr>
             </thead>
             <tbody id="target">
@@ -148,29 +158,28 @@
 
 <script type="text/javascript" src="<?= base_url() ?>assets/js/bulma-calendar.min.js"></script>
 <script type="text/javascript">
-    var dataakun = '<?= base_url('accounting') ?>'
-    var dataAkun = fetch(dataakun)
-        .then((response) => {
-            response.json().then((result) => {
-                data = result.data
-                target.html(result.html)
-                isLoadedAttachDataTable(data)
-            })
-        })
-        .catch((err) => {
-            alert("failed to fetch")
-        })
-    var startDateOnDateTimePicker;
+    // var dataAkun = fetch(dataakun)
+    //     .then((response) => {
+    //         response.json().then((result) => {
+    //             data = result.data
+    //             target.html(result.html)
+    //             isLoadedAttachDataTable(data)
+    //         })
+    //     })
+    //     .catch((err) => {
+    //         alert("failed to fetch")
+    //     })
+    // var startDateOnDateTimePicker;
 
-    $(document).on('click', 'a.modal-button', function() {
-        let el = $(this).attr('name');
-        $.each(dataAkun, function(key, entry) {
-            $("select[name*='akun_kode']")
-                .append($('<option></option>')
-                    .attr('value', entry.akun_kode)
-                    .text(entry.akun_kode + ' - ' + entry.akun_ket));
-        });
-    })
+    // $(document).on('click', 'a.modal-button', function() {
+    //     let el = $(this).attr('name');
+    //     $.each(dataAkun, function(key, entry) {
+    //         $("select[name*='akun_kode']")
+    //             .append($('<option></option>')
+    //                 .attr('value', entry.akun_kode)
+    //                 .text(entry.akun_kode + ' - ' + entry.akun_ket));
+    //     });
+    // })
 
     function hapusElementHidden() {
         $(".datetimepicker").toggleClass('is-hidden');
@@ -181,4 +190,7 @@
             hapusElementHidden()
         });
     });
+
+    // var dataAkun = JSON.parse("< $akun ?>");
+    // console.log(dataAkun)
 </script>

@@ -28,7 +28,7 @@
                     <th data-field="akun_ket">Keterangan Akun</th>
                     <th data-field="created_at">Created at</th>
                     <th data-field="useride">Created by</th>
-                    <th>Action</th>
+                    <th data-action="edit-delete">Action</th>
                 </tr>
             </thead>
             <tbody id="target">
