@@ -103,10 +103,14 @@
             });
 
             let open_close_modal = (el = null) => {
-                const modal = (el) ? document.querySelector('#' + el) : document.querySelector('.modal');
-                modal.classList.toggle('is-active');
-                modal.classList.toggle('is-clipped');
-                let datetime = modal.querySelectorAll(".datetimepicker");
+                if (el) {
+                    var modal = document.querySelector('#' + el)
+                } else {
+                    var modal = document.querySelector('.is-active')
+                }
+                modal.classList.toggle('is-active')
+                modal.classList.toggle('is-clipped')
+                let datetime = modal.querySelectorAll(".datetimepicker")
                 datetime.forEach(rm => rm.classList.toggle("is-hidden", true))
             }
 
@@ -169,7 +173,7 @@
                 e.preventDefault();
                 const data = new FormData(form);
                 fetch(form.action, {
-                        method: form.method,
+                        method: 'POST',
                         body: data,
                     })
                     .then(response => response.json())

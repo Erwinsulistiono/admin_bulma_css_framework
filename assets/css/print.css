@@ -1,0 +1,118 @@
+@media print {
+  .page-break {
+    display: block;
+    page-break-before: always;
+  }
+}
+
+#document-print {
+  box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+  padding: 2mm;
+  margin: 0 auto;
+  width: 1000px;
+  background: #fff;
+}
+
+#document-print ::selection {
+  background: #f31544;
+  color: #fff;
+}
+
+#document-print ::moz-selection {
+  background: #f31544;
+  color: #fff;
+}
+
+#document-print h1 {
+  font-size: 1.5em;
+  color: #222;
+}
+
+#document-print h2 {
+  font-size: 0.9em;
+}
+
+#document-print h3 {
+  font-size: 1.2em;
+  font-weight: 300;
+  line-height: 2em;
+}
+
+#document-print p {
+  font-size: 0.3em;
+  color: #666;
+  line-height: 1.2em;
+}
+
+#document-print #top,
+#document-print #mid,
+#document-print #bot {
+  border-bottom: 1px solid #eee;
+}
+
+#document-print #top {
+  min-height: 100px;
+}
+
+#document-print #mid {
+  min-height: 5px;
+}
+
+#document-print #bot {
+  min-height: 50px;
+}
+
+#document-print #top .logo {
+  height: 60px;
+  width: 60px;
+  background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;
+  background-size: 60px 60px;
+}
+
+#document-print .clientlogo {
+  float: left;
+  height: 60px;
+  width: 60px;
+  background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+  background-size: 60px 60px;
+  border-radius: 50px;
+}
+
+#document-print .info {
+  display: block;
+  margin-left: 0;
+}
+
+#document-print .title {
+  float: right;
+}
+
+#document-print .title p {
+  text-align: right;
+}
+
+#document-print table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#document-print .tabletitle {
+  font-size: 0.7em;
+  background: #eee;
+}
+
+#document-print .service {
+  border-bottom: 1px solid #eee;
+}
+
+#document-print .item {
+  width: 24mm;
+}
+
+#document-print .itemtext {
+  font-size: 0.7em;
+}
+
+#document-print #legalcopy {
+  margin-top: 5mm;
+}

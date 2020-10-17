@@ -11,14 +11,9 @@
         </div>
         <div class="column">
             <div class="navbar-end">
-                <a data-modal="modal_tambah_akun" class="button modal-button is-primary is-rounded is-light has-background-white is-hidden-mobile is-pulled-right">
+                <a data-modal="modal_print" class="button modal-button is-rounded is-light has-background-white is-hidden-mobile is-pulled-right">
                     <span class="icon is-large">
-                        <i class="fas fa-lg fa-plus"></i>
-                    </span>
-                </a>
-                <a data-modal="modal_tambah_akun" class="button modal-button is-primary is-rounded is-light has-background-white is-hidden-mobile is-pulled-right">
-                    <span class="icon is-large">
-                        <i class="fas fa-lg fa-plus"></i>
+                        <i class="fas fa-lg fa-print has-text-link"></i>
                     </span>
                 </a>
                 <a data-modal="modal_tambah_akun" class="button modal-button is-primary is-rounded is-light has-background-white is-hidden-mobile is-pulled-right">
@@ -156,34 +151,119 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?= base_url() ?>assets/js/bulma-calendar.min.js"></script>
-<script type="text/javascript">
-    // var dataAkun = fetch(dataakun)
-    //     .then((response) => {
-    //         response.json().then((result) => {
-    //             data = result.data
-    //             target.html(result.html)
-    //             isLoadedAttachDataTable(data)
-    //         })
-    //     })
-    //     .catch((err) => {
-    //         alert("failed to fetch")
-    //     })
-    // var startDateOnDateTimePicker;
+<div class="modal" id="modal_print">
+    <div class="modal-background"></div>
+    <div class="modal-card">
 
-    // $(document).on('click', 'a.modal-button', function() {
-    //     let el = $(this).attr('name');
-    //     $.each(dataAkun, function(key, entry) {
-    //         $("select[name*='akun_kode']")
-    //             .append($('<option></option>')
-    //                 .attr('value', entry.akun_kode)
-    //                 .text(entry.akun_kode + ' - ' + entry.akun_ket));
-    //     });
-    // })
+        <header class="modal-card-head">
+            <p class="modal-card-title">Print Field</p>
+            <button class="delete modal-close" aria-label="close is-danger"></button>
+        </header>
+
+        <form action='<?= base_url() ?>accounting/print/' target="_blank" id="form-print" accept-charset='utf-8' method='post'>
+            <section class="modal-card-body">
+                <div class="columns">
+                    <div class="column">
+                        <input class="input" name="coa_id" type="hidden" placeholder="e.g 1001">
+                        <div class="field">
+                            <label class="label">Print Field</label>
+                            <div class="control">
+                                <input class="input is-rounded print_dest" name="field[]" type="tags" placeholder="Select Input Field From Below">
+                                <datalist id="field">
+                                </datalist>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="modal-card-foot field is-grouped is-grouped-right">
+                <div class="control">
+                    <a href="#" class="button is-link is-light is-rounded modal-foot-close">Cancel</a>
+                </div>
+                <div class="control">
+                    <button type="submit" class="button simpan-modal is-link is-rounded is-success">Save</button>
+                </div>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="<?= base_url() ?>assets/js/bulma-calendar.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/js/bulma-tagsinput.min.js"></script>
+<script type="text/javascript">
+    var dataAkun = JSON.parse('<?= $akun ?>');
+    console.log(dataAkun)
+
+    $(document).on('click', 'a.modal-button', function() {
+        let el = $(this).attr('name');
+        $.each(dataAkun, function(key, entry) {
+            $("select[name*='akun_kode']")
+                .append($('<option></option>')
+                    .attr('value', entry.akun_kode)
+                    .text(entry.akun_kode + ' - ' + entry.akun_ket));
+        });
+        assignDynamicFieldToInput()
+    })
+
+    $(document).on('click', 'a.modal-button', function() {
+        let el = $(this).attr('name');
+    })
+
+    var assignDynamicFieldToInput = () => {
+        let listOfField = document.querySelector("input[list=field]")
+        let dataPrintField = document.querySelectorAll('th[data-field]')
+        let arrPrintField = [...dataPrintField].map(t => {
+            return {
+                val: t.textContent
+            }
+        })
+
+        $.each(arrPrintField, function(key, entry) {
+            $("#field")
+                .append($('<option></option>')
+                    .attr('value', entry.val)
+                    .text(entry.text));
+        })
+
+        listOfField.addEventListener("change", function(e) {
+            // menghilangkan field yang sudah di input
+        })
+    }
+
+    $('#form-print').submit(function(e) {
+        let inputField = document.querySelectorAll(".addedFieldPrint");
+        (inputField) && console.log(inputField);
+        (inputField) && inputField.forEach(el => el.parentNode.removeChild(el));
+        let dataFromServer = JSON.parse('<?= json_encode($data) ?>')
+        let dataTag = document.querySelectorAll("div[data-tag]")
+        let dataField = document.querySelectorAll('th[data-field]')
+        var choosenField = [...dataTag].map(t => t.getAttribute('data-tag'))
+        var allField = [...dataField].map(t => {
+            return {
+                key: t.textContent,
+                value: t.getAttribute('data-field')
+            }
+        })
+        let outputPrint = allField.filter(e => choosenField.includes(e.key))
+        Object.values(outputPrint).forEach(o => {
+            let input = document.createElement('input')
+            input.setAttribute('name', 'dbField[]')
+            input.setAttribute('value', o.value)
+            input.setAttribute('type', 'hidden')
+            input.setAttribute('class', 'addedFieldPrint')
+
+            document.getElementById('form-print').appendChild(input);
+        })
+
+        return true;
+    })
+
 
     function hapusElementHidden() {
         $(".datetimepicker").toggleClass('is-hidden');
     }
+
     var calendars = bulmaCalendar.attach('[type="date"]');
     calendars.forEach(calendar => {
         calendar.on('select', date => {
@@ -191,6 +271,5 @@
         });
     });
 
-    // var dataAkun = JSON.parse("< $akun ?>");
-    // console.log(dataAkun)
+    bulmaTagsinput.attach();
 </script>

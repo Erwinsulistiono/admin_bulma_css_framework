@@ -57,13 +57,13 @@
                 <div class="field">
                     <label class="label">Nomor</label>
                     <div class="control">
-                        <input class="input" name="akun_kode" type="text" placeholder="e.g 1001">
+                        <input class="input" name="akun_kode" type="tags" placeholder="e.g 1001">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Keterangan</label>
                     <div class="control">
-                        <input class="input" name="akun_ket" type="text" placeholder="e.g. Kas & Bank">
+                        <input class="input" name="akun_ket" type="tags" placeholder="e.g. Kas & Bank">
                     </div>
                 </div>
             </section>

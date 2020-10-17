@@ -73,4 +73,19 @@ class Accounting extends CI_Controller
         $this->M_crud->delete('acc_coa', 'coa_id', $id);
         $this->master_coa();
     }
+
+    public function print()
+    {
+        $data['head'] = $this->input->post('dbField');
+        $data['body'] = $this->M_crud->left_join('acc_coa', 'acc_akun', 'acc_coa.coa_akun_grup=acc_akun.akun_kode');
+        $this->load->view('accounting/v_print', $data);
+        // var_dump($data);
+        // $this->load->view('accounting/v_print', $data);
+
+        // var_dump($data);
+
+        // $this->load->view('accounting/v_print', $data);
+
+        // echo json_encode($data);
+    }
 }
