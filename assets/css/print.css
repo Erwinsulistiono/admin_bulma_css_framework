@@ -94,6 +94,8 @@
 #document-print table {
   width: 100%;
   border-collapse: collapse;
+  border: solid;
+  border-width: thin;
 }
 
 #document-print .tabletitle {
@@ -115,4 +117,14 @@
 
 #document-print #legalcopy {
   margin-top: 5mm;
+}
+
+#document-print th {
+  border: solid;
+  border-width: thin;
+}
+
+#document-print td {
+  border: solid;
+  border-width: thin;
 }

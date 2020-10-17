@@ -10,23 +10,26 @@
 
 <body translate="no">
     <div id="document-print">
-        <h1>TEST</h1>
         <div id="bot">
             <div id="table">
                 <table>
                     <thead id="thead"></thead>
                     <tr>
-                        <?php var_dump($head)  ?>
-                        <!-- <th>?= $h ?></th> -->
-                        <!-- ?php endforeach ?> -->
-                        <!-- <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>5</th> -->
+                        <?php foreach ($head[0] as $h) : ?>
+                            <th><?= $h ?></th>
+                        <?php endforeach ?>
                     </tr>
                     <tbody id="tbody"></tbody>
+                    <?php foreach ($body as $b) : ?>
+                        <tr>
+                            <?php foreach ($head[1] as $val) : ?>
+                                <td><?= $b[$val] ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
                 </table>
+                <!-- ?php print_r($body) ?>
+                ?php print_r($head[1]) ?> -->
             </div>
         </div>
     </div>

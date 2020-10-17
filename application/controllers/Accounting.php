@@ -76,7 +76,12 @@ class Accounting extends CI_Controller
 
     public function print()
     {
-        $data['head'] = $this->input->post('dbField');
+        $field = explode(",", $this->input->post('field')[0]);
+        // foreach ($field as $f) {
+        $data = [
+            'head' => [$field, $this->input->post("dbField")]
+        ];
+        // }
         $data['body'] = $this->M_crud->left_join('acc_coa', 'acc_akun', 'acc_coa.coa_akun_grup=acc_akun.akun_kode');
         $this->load->view('accounting/v_print', $data);
         // var_dump($data);
